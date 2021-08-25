@@ -59,7 +59,7 @@ namespace RecruitmentTask.Repository
 
         public Entity GetById(Guid id)
         {
-            return Entities.Where(x => x.Id == id).Single();
+            return Entities.Where(x => x.Id == id).SingleOrDefault();
         }
     }
 }
