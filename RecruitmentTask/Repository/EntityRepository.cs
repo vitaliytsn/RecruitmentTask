@@ -8,26 +8,26 @@ namespace RecruitmentTask.Repository
 {
     public class EntityRepository : IRepository
     {
-        private List<Entity> Items { get; set; }
+        private List<Entity> Entities { get; set; }
         public EntityRepository()
         {
-            Items = new List<Entity>();
+            Entities = new List<Entity>();
             //Define initial state of abstract repository for tests
-            Items.Add(new Entity()
+            Entities.Add(new Entity()
             {
                 CreateDate = DateTimeOffset.UtcNow,
                 Id = Guid.NewGuid(),
                 Name = "First",
                 Price = 10
             });
-            Items.Add(new Entity()
+            Entities.Add(new Entity()
             {
                 CreateDate = DateTimeOffset.UtcNow,
                 Id = Guid.NewGuid(),
                 Name = "Secound",
                 Price = 20
             });
-            Items.Add(new Entity()
+            Entities.Add(new Entity()
             {
                 CreateDate = DateTimeOffset.UtcNow,
                 Id = Guid.NewGuid(),
@@ -35,26 +35,31 @@ namespace RecruitmentTask.Repository
                 Price = 30
             });
         }
-        public void CreateItem(Entity item)
+        public void CreateEntity(Entity item)
         {
-            Items.Add(item);
+            Entities.Add(item);
         }
 
         public void DeleteEntity(Guid id)
         {
-            var index = Items.FindIndex(existingItem => existingItem.Id == id);
-            Items.RemoveAt(index);
+            var index = Entities.FindIndex(existingItem => existingItem.Id == id);
+            Entities.RemoveAt(index);
         }
 
         public List<Entity> GetAll()
         {
-            return Items;
+            return Entities;
         }
 
-        public void UpdateItem(Entity item)
+        public void UpdateEntity(Entity item)
         {
-            var index = Items.FindIndex(existingItem => existingItem.Id == item.Id);
-            Items[index] = item;
+            var index = Entities.FindIndex(existingItem => existingItem.Id == item.Id);
+            Entities[index] = item;
+        }
+
+        public Entity GetById(Guid id)
+        {
+            return Entities.Where(x => x.Id == id).Single();
         }
     }
 }

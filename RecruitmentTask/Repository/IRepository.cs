@@ -10,9 +10,11 @@ namespace RecruitmentTask.Repository
     {
         List<Entity> GetAll();
 
-        void CreateItem(Entity item);
+        Entity GetById(Guid id);
 
-        void UpdateItem(Entity item);
+        void CreateEntity(Entity item);
+
+        void UpdateEntity(Entity item);
 
         void DeleteEntity(Guid id);
     }
