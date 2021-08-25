@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RecruitmentTask.DTOS;
 using RecruitmentTask.Model;
 using RecruitmentTask.Repository;
@@ -14,15 +15,18 @@ namespace RecruitmentTask.Controllers
     public class EntityController : Controller
     {
         private readonly IRepository _repository;
-        public EntityController(IRepository repository)
+        private readonly ILogger<EntityController> _logger;
+        public EntityController(IRepository repository,ILogger<EntityController> logger)
         {
             this._repository = repository;
+            this._logger = logger;
         }
 
         [HttpGet]
         public IEnumerable<EntityDto> GetItems()
         {
             var entities =  _repository.GetAll();
+            _logger.LogInformation($"{DateTime.UtcNow.ToString()}: Found {entities.Count()} entities");
             return entities.Select(x => x.ConvertToDto());
         }
 
