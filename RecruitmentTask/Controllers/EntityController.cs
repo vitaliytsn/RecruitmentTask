@@ -23,7 +23,7 @@ namespace RecruitmentTask.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<EntityDto> GetItems()
+        public IEnumerable<EntityDto> GetEntities()
         {
             var entities =  _repository.GetAll();
             _logger.LogInformation($"{DateTime.UtcNow.ToString()}: Found {entities.Count()} entities");
@@ -31,7 +31,7 @@ namespace RecruitmentTask.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<EntityDto> GetItem (Guid id)
+        public ActionResult<EntityDto> GetEntityById (Guid id)
         {
 
             var entity = _repository.GetById(id);
@@ -55,7 +55,7 @@ namespace RecruitmentTask.Controllers
             };
             _repository.CreateEntity (entity);
 
-            return CreatedAtAction(nameof(GetItem), new { id = entity.Id }, entity.ConvertToDto());
+            return CreatedAtAction(nameof(GetEntityById), new { id = entity.Id }, entity.ConvertToDto());
         }
 
         [HttpPut("{id}")]
@@ -81,7 +81,7 @@ namespace RecruitmentTask.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteItem(Guid id)
+        public ActionResult DeleteEntity(Guid id)
         {
             var existingItem = _repository.GetById(id);
 
